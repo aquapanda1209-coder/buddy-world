@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Buddy World</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#d8c39b;color:#624629;font-family:Trebuchet MS,Arial,sans-serif}
+button{font:inherit;color:#624629;font-weight:900;border:3px solid #9b6b3d;border-radius:14px;background:#fff1cf;padding:10px 14px;cursor:pointer;box-shadow:0 3px 0 #7b562f44}
+button:active{transform:translateY(2px);box-shadow:none}
+#app{max-width:1450px;margin:auto;background:#f7e8c4;min-height:100vh;box-shadow:0 0 30px #5e462533}
+.top{height:56px;background:#6f4a2b;color:#fff5dd;display:flex;align-items:center;padding:0 16px;justify-content:space-between}.brand{font-size:20px;font-weight:900}.topBtns{display:flex;gap:8px}.top button{padding:5px 10px;border-color:#9b7149;background:#80603e;color:#fff}
+.grid{display:grid;grid-template-columns:27% 38% 35%;grid-template-rows:590px 390px;gap:3px;background:#815c38}
+.panel{background:#fff0ce;min-width:0;overflow:hidden}.left{padding:20px;text-align:center}.title{font-size:57px;line-height:.82;font-weight:1000;letter-spacing:1px;margin:8px 0 10px}.subtitle{font-weight:800;margin-bottom:6px}
+.bigBuddy{height:250px;position:relative;margin:5px auto}.dog{position:absolute;left:50%;top:25px;transform:translateX(-50%);width:180px;height:180px;background:#f6b675;border:6px solid #b66d3c;border-radius:48% 48% 42% 42%}.dog:before,.dog:after{content:"";position:absolute;top:78px;width:18px;height:25px;border-radius:50%;background:#70421f}.dog:before{left:50px}.dog:after{right:50px}.snout{position:absolute;top:94px;left:78px;width:23px;height:14px;background:#70421f;border-radius:50%}.ear{position:absolute;width:66px;height:76px;background:#f6b675;border:6px solid #b66d3c;border-radius:50%;top:78px}.ear.l{left:-35px}.ear.r{right:-35px}.tail{position:absolute;right:-42px;bottom:17px;width:58px;height:58px;border:9px solid #b66d3c;border-left:0;border-radius:50%}.menu{display:grid;gap:9px;max-width:285px;margin:auto}.menu button{font-size:18px}.new{background:#bdd77b}.continue{background:#f2be50}.dexBtn{background:#9fd7e8}.options{background:#c9a6d3}
+.stats{display:flex;gap:10px;position:absolute;top:14px;left:14px;z-index:5}.statpill{background:#fff1cf;border:3px solid #9b6b3d;border-radius:18px;padding:7px 11px;font-weight:900}.areaName{position:absolute;top:13px;left:50%;transform:translateX(-50%);background:#fff1cf;border:3px solid #9b6b3d;border-radius:18px;padding:9px 18px;font-weight:900;font-size:19px;z-index:5}
+.world{position:relative;height:100%;overflow:hidden;background:#8eb96a}.world:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 15%,#6e9d55 0 70px,transparent 72px),radial-gradient(circle at 82% 15%,#72a45b 0 90px,transparent 92px),radial-gradient(circle at 18% 78%,#6b9b52 0 100px,transparent 102px),radial-gradient(circle at 80% 78%,#76a858 0 90px,transparent 92px)}
+.path{position:absolute;width:145px;height:720px;left:40%;top:-80px;background:#ead09a;border:6px solid #c9a96e;border-radius:80px;transform:rotate(8deg)}.water{position:absolute;left:23%;top:17%;width:280px;height:140px;border-radius:50%;background:#76c6d7;border:7px solid #559aa7}.bridge{position:absolute;left:42%;top:29%;width:155px;height:48px;background:#9c6838;border:5px solid #704824;transform:rotate(-8deg);z-index:2}.tree{position:absolute;font-size:78px;z-index:1}.tree1{left:2%;top:3%}.tree2{right:2%;top:3%}.tree3{right:3%;bottom:2%}.flowers{position:absolute;font-size:27px;z-index:2}.fl1{left:14%;top:58%}.fl2{left:25%;bottom:12%}.fl3{right:14%;top:57%}.fl4{right:25%;bottom:14%}
+.player{position:absolute;left:47%;top:43%;z-index:6;width:58px;text-align:center;transition:.12s}.head{width:44px;height:44px;border-radius:50%;background:#f1c39d;border:4px solid #6f4728;margin:auto;position:relative}.hair{position:absolute;left:-2px;top:-5px;width:44px;height:22px;background:#6b452d;border-radius:50% 50% 35% 35%}.body{width:45px;height:33px;background:#7f9f6a;border:4px solid #6f4728;border-radius:13px;margin:-2px auto 0}.buddy{position:absolute;z-index:7;width:74px;height:75px;cursor:pointer}.buddyshape{position:absolute;inset:13px 7px 2px;border:4px solid #9a6238;border-radius:50%;background:var(--c)}.buddy:after{content:"•  •";position:absolute;left:22px;top:34px;font-size:18px;letter-spacing:3px;color:#6a4224}.puffo{left:63%;top:48%;--c:#f6b675}.leafu{right:12%;top:25%;--c:#b5d97b}.flowi{left:11%;bottom:18%;--c:#8fd5e7}.sideNav{position:absolute;bottom:0;left:0;right:0;height:102px;background:#f5dfb0cc;display:flex;justify-content:center;align-items:center;gap:12px;z-index:10}.sideNav button{width:105px;height:70px;font-size:14px}.sideNav b{display:block;font-size:24px}
+.battle{position:relative;height:100%;background:linear-gradient(#9dd3e1 0 48%,#a7ca72 48%);overflow:hidden}.battle .ground{position:absolute;bottom:20%;left:13%;width:75%;height:90px;background:#8fb960;border-radius:50%}.enemy{position:absolute;right:16%;top:18%;width:125px;height:125px;border-radius:50% 50% 45% 45%;background:#b6d97b;border:5px solid #779c4f}.enemy:before{content:"";position:absolute;left:40px;top:49px;width:14px;height:18px;border-radius:50%;background:#4e612e;box-shadow:35px 0 #4e612e}.enemy:after{content:"🌿";position:absolute;right:-12px;top:-43px;font-size:48px}.battleBuddy{position:absolute;left:10%;bottom:20%;width:145px;height:125px;background:#f6b675;border:6px solid #a96237;border-radius:50% 50% 42% 42%;transform:scaleX(-1)}.battleBuddy:before,.battleBuddy:after{content:"";position:absolute;top:50px;width:16px;height:22px;background:#70421f;border-radius:50%}.battleBuddy:before{left:38px}.battleBuddy:after{right:38px}.health{position:absolute;background:#fff0ce;border:3px solid #8f6339;border-radius:15px;padding:9px 13px;font-weight:900;min-width:210px}.enemyHP{right:10%;top:4%}.buddyHP{left:5%;bottom:5%}.bar{height:13px;border:3px solid #777052;border-radius:10px;background:#e5dfc8;overflow:hidden;margin-top:5px}.bar i{display:block;height:100%;background:#76ad55}.moves{position:absolute;right:4%;bottom:5%;display:grid;gap:6px;width:170px}.moves button{background:#fff0d3}.moves .fire{background:#f5c45d}
+.bottom{grid-column:1/4;display:grid;grid-template-columns:31% 38% 31%;gap:3px;background:#815c38}.bottomPanel{background:#fff0ce;padding:16px;overflow:auto}.bottom h2{text-align:center;margin:0 0 6px;font-size:26px}.found{text-align:center;font-weight:900;margin-bottom:8px}.dexgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.dexitem{background:#fff6df;border:3px solid #d2b477;border-radius:12px;padding:6px;text-align:center;font-weight:900;font-size:12px}.mini{height:60px;position:relative}.mini .shape{position:absolute;left:50%;transform:translateX(-50%);bottom:2px;width:50px;height:47px;border:3px solid #9a6238;border-radius:50%;background:var(--c)}.mini .shape:after{content:"• •";position:absolute;left:12px;top:17px;font-size:12px}.detail{display:grid;grid-template-columns:45% 55%;gap:10px;align-items:center}.detailBuddy{height:210px;position:relative}.detailBuddy .shape{position:absolute;left:50%;top:35px;transform:translateX(-50%);width:155px;height:145px;border:6px solid #a96237;border-radius:50%;background:#f6b675}.detailBuddy .shape:after{content:"•  •";position:absolute;left:50px;top:62px;font-size:25px;letter-spacing:14px}.tag{display:inline-block;background:#ef8d3f;color:#fff;border-radius:9px;padding:5px 9px;font-weight:900}.roster{display:grid;gap:8px}.member{display:grid;grid-template-columns:55px 1fr auto;align-items:center;background:#fff7e1;border:3px solid #e1c894;border-radius:14px;padding:5px 10px}.member .mini{height:55px}.add{border:3px dashed #d3b77e;border-radius:14px;text-align:center;padding:14px;font-weight:900;color:#b39461}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#624629;color:#fff5dc;padding:12px 18px;border-radius:15px;display:none;z-index:99;font-weight:900}.toast.show{display:block}
+.modal{position:fixed;inset:0;background:#4d361e88;display:none;align-items:center;justify-content:center;z-index:100;padding:18px}.modal.show{display:flex}.modalCard{background:#fff0ce;border:5px solid #95673a;border-radius:22px;padding:22px;max-width:430px;width:100%;text-align:center}.modalCard button{margin:5px}
+@media(max-width:900px){.grid{grid-template-columns:1fr;grid-template-rows:auto;}.bottom{grid-column:auto;grid-template-columns:1fr}.panel{min-height:480px}.world,.battle{height:520px}.left{min-height:600px}.bottomPanel{min-height:380px}.top{position:sticky;top:0;z-index:50}.sideNav button{width:85px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="top"><div class="brand">🐾 Buddy World</div><div class="topBtns"><button onclick="saveGame()">Save</button><button onclick="resetGame()">New Game</button></div></header>
+
+<div class="grid">
+<section class="panel left">
+<div class="title">BUDDY<br>WORLD</div>
+<div class="bigBuddy"><div class="dog"><div class="snout"></div><div class="ear l"></div><div class="ear r"></div><div class="tail"></div></div></div>
+<div class="menu"><button class="new" onclick="newGame()">New Game</button><button class="continue" onclick="continueGame()">Continue</button><button class="dexBtn" onclick="scrollToId('dex')">BuddyDex</button><button class="options" onclick="help()">Options</button></div>
+</section>
+
+<section class="panel">
+<div class="world" id="world">
+<div class="stats"><div class="statpill">❤️ <span id="playerHP">20</span>/20</div><div class="statpill">🪙 <span id="coins">150</span></div></div>
+<div class="areaName">Sunny Meadows</div><div class="path"></div><div class="water"></div><div class="bridge"></div>
+<div class="tree tree1">🌳</div><div class="tree tree2">🌳</div><div class="tree tree3">🌲</div>
+<div class="flowers fl1">🌼</div><div class="flowers fl2">🌸</div><div class="flowers fl3">🌻</div><div class="flowers fl4">🌷</div>
+<div class="buddy puffo" onclick="encounter('Puffo')"><div class="buddyshape"></div></div>
+<div class="buddy leafu" onclick="encounter('Leafu')"><div class="buddyshape"></div></div>
+<div class="buddy flowi" onclick="encounter('Flowi')"><div class="buddyshape"></div></div>
+<div class="player" id="player"><div class="head"><div class="hair"></div></div><div class="body"></div></div>
+<div class="sideNav"><button onclick="toast('Your Bag is empty for now!')">🎒<b>▣</b>Bag</button><button onclick="scrollToId('party')">🐾<b>♣</b>Buddies</button><button onclick="toast('You are in Sunny Meadows')">🗺️<b>⌁</b>Map</button><button onclick="help()">⚙️<b>⚙</b>Settings</button></div>
+</div>
+</section>
+
+<section class="panel">
+<div class="battle">
+<div class="health enemyHP">Leafu <span style="float:right">Lv. 3</span><div class="bar"><i style="width:82%"></i></div></div>
+<div class="ground"></div><div class="enemy"></div><div class="battleBuddy"></div>
+<div class="health buddyHP">Puffo 🔥 <span style="float:right">Lv. 5</span><div class="bar"><i id="battleBar" style="width:90%"></i></div>HP <span id="battleHP">18</span>/20</div>
+<div class="moves"><button onclick="attack('Tackle')">Tackle</button><button class="fire" onclick="attack('Ember')">Ember 🔥</button><button onclick="attack('Tail Whip')">Tail Whip</button><button onclick="attack('Snuggle')">Snuggle</button></div>
+</div>
+</section>
+
+<div class="bottom">
+<section class="bottomPanel" id="dex"><h2>BUDDYDEX</h2><div class="found">Found: <span id="found">3</span>/20</div><div class="dexgrid" id="dexGrid"></div></section>
+<section class="bottomPanel"><h2>PUFFO</h2><div class="detail"><div class="detailBuddy"><div class="shape"></div></div><div><p>A warm and affectionate Buddy who loves to cuddle.</p><span class="tag">🔥 FIRE</span><p>❤️ HP <b>20</b><br>⚔️ Attack <b>8</b><br>🛡️ Defense <b>6</b><br>✦ Speed <b>7</b></p></div></div></section>
+<section class="bottomPanel" id="party"><h2>MY BUDDIES</h2><div class="roster" id="roster"></div><div class="add">＋ Add a Buddy</div></section>
+</div>
+</div></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalCard"><h2 id="modalTitle"></h2><div id="modalBody"></div><button onclick="closeModal()">Close</button></div></div>
+
+<script>
+const data=[
+{name:"Puffo",type:"FIRE",c:"#f6b675",hp:20,atk:8,def:6,spd:7,desc:"A warm and affectionate Buddy who loves to cuddle."},
+{name:"Leafu",type:"LEAF",c:"#b5d97b",hp:15,atk:6,def:8,spd:6,desc:"A gentle sprout Buddy that naps in sunny grass."},
+{name:"Flowi",type:"WATER",c:"#8fd5e7",hp:17,atk:7,def:5,spd:9,desc:"A bubbly little Buddy that follows streams."},
+{name:"Rootle",type:"EARTH",c:"#c7b18d",hp:22,atk:7,def:10,spd:3,desc:"A sturdy Buddy with a shell-like back."},
+{name:"Birbly",type:"AIR",c:"#8ccfe5",hp:14,atk:8,def:4,spd:10,desc:"A chirpy sky Buddy with a huge personality."},
+{name:"Pebbi",type:"STONE",c:"#bcae93",hp:19,atk:5,def:11,spd:4,desc:"A quiet Buddy that enjoys collecting pebbles."},
+{name:"Mochi",type:"LIGHT",c:"#f4c8a0",hp:16,atk:9,def:5,spd:8,desc:"A sleepy Buddy that glows when happy."},
+{name:"Nimbo",type:"CLOUD",c:"#c6d9ec",hp:13,atk:10,def:4,spd:11,desc:"A fluffy Buddy that floats with the breeze."},
+{name:"Mallow",type:"BLOOM",c:"#e7b7cf",hp:18,atk:8,def:7,spd:7,desc:"A flower Buddy that loves morning sunshine."},
+{name:"Clover",type:"LUCK",c:"#9fd29a",hp:16,atk:7,def:7,spd:10,desc:"A lucky Buddy that finds hidden treats."}
+];
+let owned=[0,1,2],coins=150,hp=20,battleHP=18,px=47,py=43;
+
+function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>e.classList.remove('show'),1900)}
+function modal(t,b){document.getElementById('modalTitle').textContent=t;document.getElementById('modalBody').innerHTML=b;document.getElementById('modal').classList.add('show')}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:"smooth"})}
+function help(){modal("🌟 How to Play","<p>Move around Sunny Meadows with <b>WASD or the arrow keys</b>. Tap a Buddy to meet it.</p><p>Use the battle buttons to practice with Puffo. Befriending a Buddy adds it to your BuddyDex and team.</p><p>Your progress can be saved on this device.</p>")}
+function encounter(name){let b=data.find(x=>x.name===name),i=data.indexOf(b);modal("✨ "+b.name+" appeared!",`<div style="font-size:70px">🐾</div><p>${b.desc}</p><p><b>${b.type} Buddy</b> · HP ${b.hp}</p><button onclick="befriend(${i})">💛 Befriend</button>`)}
+function befriend(i){if(!owned.includes(i)){owned.push(i);coins+=25;document.getElementById("coins").textContent=coins;toast("🎉 "+data[i].name+" joined your team! +25 coins");render()}else toast(data[i].name+" is already on your team!");closeModal()}
+function attack(move){let dmg=move==="Ember"?4:move==="Tackle"?3:move==="Tail Whip"?2:0;if(move==="Snuggle"){battleHP=Math.min(20,battleHP+3);toast("💗 Snuggle restored Puffo's HP!")}else{battleHP=Math.max(0,battleHP-dmg);toast(move+" landed!");}document.getElementById("battleHP").textContent=battleHP;document.getElementById("battleBar").style.width=(battleHP/20*100)+"%";if(battleHP===0){setTimeout(()=>{battleHP=20;document.getElementById("battleHP").textContent=20;document.getElementById("battleBar").style.width="100%";toast("✨ Puffo rested and recovered!");},700)}}
+function move(dx,dy){px=Math.max(7,Math.min(88,px+dx*4));py=Math.max(9,Math.min(82,py+dy*4));let p=document.getElementById("player");p.style.left=px+"%";p.style.top=py+"%";if(Math.random()<.09)encounter(data[Math.floor(Math.random()*data.length)].name)}
+document.addEventListener("keydown",e=>{let k=e.key.toLowerCase();if(k==="arrowup"||k==="w"){e.preventDefault();move(0,-1)}if(k==="arrowdown"||k==="s"){e.preventDefault();move(0,1)}if(k==="arrowleft"||k==="a"){e.preventDefault();move(-1,0)}if(k==="arrowright"||k==="d"){e.preventDefault();move(1,0)}});
+
+function render(){document.getElementById("found").textContent=owned.length;document.getElementById("dexGrid").innerHTML=data.slice(0,8).map((b,i)=>owned.includes(i)?`<div class="dexitem"><div class="mini"><div class="shape" style="--c:${b.c}"></div></div>00${i+1} ${b.name}</div>`:`<div class="dexitem"><div class="mini"><div class="shape" style="--c:#cbbd9f;opacity:.45"></div></div>00${i+1} ???</div>`).join("");document.getElementById("roster").innerHTML=owned.map(i=>{let b=data[i];return `<div class="member"><div class="mini"><div class="shape" style="--c:${b.c}"></div></div><div><b>${b.name}</b><br><small>${b.type}</small><div class="bar"><i style="width:${Math.min(100,b.hp*4)}%"></i></div></div><small>Lv. ${i===0?5:3}<br>${b.hp}/${b.hp}</small></div>`}).join("");document.getElementById("coins").textContent=coins}
+function newGame(){owned=[0];coins=150;hp=20;battleHP=18;render();toast("🌱 New Buddy World started!")}
+function saveGame(){localStorage.setItem("buddyWorldSave",JSON.stringify({owned,coins,hp,battleHP}));toast("💾 Game saved!")}
+function continueGame(){let s=localStorage.getItem("buddyWorldSave");if(s){Object.assign(window,JSON.parse(s));render();toast("✨ Welcome back!")}else toast("No saved game yet. Start a New Game!")}
+function resetGame(){localStorage.removeItem("buddyWorldSave");newGame()}
+render();
+</script>
+</body>
+</html>
